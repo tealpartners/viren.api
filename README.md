@@ -12,7 +12,7 @@ The swagger for the Viren Rest API can be found on https://execution.viren.be/sw
 ## Examples
 
 ## Authorization
-All communication with the Viren Execution API requires a HTTP Authentication header that contains a valid bearer token.
+All communication with the Viren Execution API requires a HTTP Authorization header that contains a valid bearer token.
 
 ```
 Authorization: Bearer <token>
