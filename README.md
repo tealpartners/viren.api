@@ -11,14 +11,14 @@ The swagger for the Viren Rest API can be found on https://execution.viren.be/sw
 
 ## Examples
 
-## Authentication
-All communication with the Viren Execution API require a HTTP Authentication header that contains a valid access_token.
+## Authorization
+All communication with the Viren Execution API requires a HTTP Authentication header that contains a valid bearer token.
 
 ```
-Authentication: Bearer <access_token>
+Authorization: Bearer <token>
 ```
 
-Send a request to the oauth endpoint to get a new access_token.
+Send a request to the oauth endpoint to get a new token.
 
 ```
 POST https://login.viren.be/oauth/token
@@ -41,9 +41,7 @@ Response
 
 ## Execute a block
 
-To following request can be used to execute a Viren Block.
-Request id should be a new UUID for every request. Client session id should be a new UUID for every logical new calculation.
-If you have to do multiple round trips to Viren to calculate one business entity you can reuse the client session id.
+Request id should be a new UUID for every request. Client session id should be a new UUID for every "logical" calculation.
 
 ```
 POST https://execution.viren.be/v1/calculation
@@ -73,7 +71,7 @@ Response
 }
 ```
 
-Always check the isValid boolean of your request. If isValid is set the result property should be ignored.
+Always check the isValid boolean of the response. If isValid is false the result property should be ignored.
 
 
 ## Execute Batch Calculations
