@@ -1,7 +1,7 @@
-# Viren Exevution API
+# Viren Execution API
 
 The Viren Execution API can be used to execute a block of a Viren model or obtain information about a Viren model.
- The examples bellow describe the most comment use cases of the Viren Execution API.
+The examples bellow describe the most common use cases of the Viren Execution API.
 
 
 A nuget package for .NET development is available on https://github.com/tealpartners/viren.net
