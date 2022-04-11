@@ -1,1 +1,137 @@
-"# viren.api" 
+# Viren Exevution API
+
+The Viren Execution API can be used to execute a block of a Viren model or obtain information about a Viren model.
+ The examples bellow describe the most comment use cases of the Viren Execution API.
+
+
+A nuget package for .NET development is available on https://github.com/tealpartners/viren.net
+
+The swagger for the Viren Rest API can be found on https://execution.viren.be/swagger/ui/index.
+
+
+## Examples
+
+## Authentication
+All communication with the Viren Execution API require a HTTP Authentication header that contains a valid access_token.
+
+```
+Authentication: Bearer <access_token>
+```
+
+Send a request to the oauth endpoint to get a new access_token.
+
+```
+POST https://login.viren.be/oauth/token
+{
+    "grant_type": "client_credentials",
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "audience": "https://tealpartners.com/calculation/api"
+}
+
+Response
+{
+    "access_token": "ey..",
+    "expires_in": 28800,
+    "token_type": "Bearer"
+}
+```
+
+**Important**: Because there is a limit on the number of access_tokens that can be requested it is important to reuse your token whenever possible.
+
+## Execute a block
+
+To following request can be used to execute a Viren Block.
+Request id should be a new UUID for every request. Client session id should be a new UUID for every logical new calculation.
+If you have to do multiple round trips to Viren to calculate one business entity you can reuse the client session id.
+
+```
+POST https://execution.viren.be/v1/calculation
+{
+    "requestId": "1aba7953-54f3-455a-ab2f-fc0c461fc8cf",
+    "project": "Project",
+    "model": "Model",
+    "version": 1,
+    "revision": 0,
+    "entryPoint": "RootBlock",
+    "root": {
+        "Input1": 5
+    },
+    "globals": {},
+    "resultType": 15001,
+    "clientSessionId": "47690274-133f-4e75-b0f4-1d3c3f049367"
+}
+
+
+Response
+{
+    "isValid": true,
+    "result": {
+        "Output1" : 20
+    },    
+    "validationMessages": []
+}
+```
+
+Always check the isValid boolean of your request. If isValid is set the result property should be ignored.
+
+
+## Execute Batch Calculations
+
+You can send multiple executions in batch to Viren.
+
+```
+POST https://execution.viren.be/v2/calculations
+{
+  "batchCalculationInputItems": [
+    {
+      "project": "Project",
+      "model": "Model",
+      "version": 1,
+      "revision": 0,
+      "entryPoint": "RootBlcok",
+      "resultType": 15001,
+      "calculationInputs": [
+        {
+          "requestId": "c4f15f19-76a3-4316-9d73-9a9a51560213",
+          "root": {
+              "Input1": 3
+          },
+          "globals": {}
+        },
+        {
+          "requestId": "3ef51147-0a1f-4c70-adab-be943ab81c11",
+          "root": {
+              "Input1": 10
+          }
+        }
+      ]
+    }
+  ],
+  "clientSessionId": "7b490d44-28cc-42c8-9e76-422f75195098"
+}
+
+Response
+{
+    "validationMessages": [],
+    "elapsedMilliseconds": 127,
+    "batchCalculationOutputItems": [
+        {
+            "requestId": "c4f15f19-76a3-4316-9d73-9a9a51560213",
+            "result": {
+                "Output1": 6.0
+            },
+            "validationMessages": [],
+            "isValid": true
+        },
+        {
+            "requestId": "3ef51147-0a1f-4c70-adab-be943ab81c11",
+            "result": {
+                "Output1": 20.0
+            },
+            "validationMessages": [],
+            "isValid": true
+        }
+    ]
+}
+```
