@@ -39,7 +39,7 @@ Response
 
 **Important**: Because there is a limit on the number of access_tokens that can be requested it is important to reuse your token whenever possible.
 
-## Execute a block
+## Execute Calculation
 
 Request id should be a new UUID for every request. Client session id should be a new UUID for every "logical" calculation.
 
