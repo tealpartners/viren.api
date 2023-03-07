@@ -133,3 +133,53 @@ Response
     ]
 }
 ```
+
+
+## Optimize
+
+You can optimize by providing the expected value for one output and one or more inpunts to optimize to.
+
+
+```
+POST https://execution.viren.be/v1/calculation/optimize
+{
+    "requestId": "0dd356dc-4062-40e2-82d3-e4b6c0a521db",
+    "project": "Project",
+    "model": "Model",
+    "version": 1,
+    "entryPoint": "RootBlcok",
+    "root": {
+        "In1": 30
+    },
+    "globals": {},
+    "optimizeInputs": [
+        {
+            "rootParameterName": "In2",
+            "numericOptimizationOptions": {
+                "minimum": "0",
+                "maximum": "1000"
+            }
+        }
+    ],
+    "optimizeOutput": {
+        "allowedMargin": 0.1,
+        "outputHintValue": "150",
+        "resultName": "Out1"
+    }
+}
+
+Response
+{
+    "result": {
+        "Out1": 149.9951171875,
+        "Out2": 130.0
+    },
+    "input": {
+        "In1": 30,
+        "In2": 119.9951171875
+    },
+    "abortReason": "",
+    "isValid": true,
+    "validationMessages": [  ]
+}
+```
