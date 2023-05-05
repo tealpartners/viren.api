@@ -12,32 +12,11 @@ The swagger for the Viren Rest API can be found on https://execution.viren.be/sw
 ## Examples
 
 ## Authorization
-All communication with the Viren Execution API requires a HTTP Authorization header that contains a valid bearer token.
+All communication with the Viren Execution API requires a HTTP Authorization header that contains a valid API Key.
 
 ```
-Authorization: Bearer <token>
+Authorization: ApiKey <client_secert>
 ```
-
-Send a request to the oauth endpoint to get a new token.
-
-```
-POST https://login.viren.be/oauth/token
-{
-    "grant_type": "client_credentials",
-    "client_id": "your_client_id",
-    "client_secret": "your_client_secret",
-    "audience": "https://tealpartners.com/calculation/api"
-}
-
-Response
-{
-    "access_token": "ey..",
-    "expires_in": 28800,
-    "token_type": "Bearer"
-}
-```
-
-**Important**: Because there is a limit on the number of access_tokens that can be requested it is important to reuse your token whenever possible.
 
 ## Execute Calculation
 
