@@ -15,7 +15,7 @@ The swagger for the Viren Rest API can be found on https://execution.viren.be/sw
 All communication with the Viren Execution API requires a HTTP Authorization header that contains a valid API Key.
 
 ```
-Authorization: ApiKey <client_secert>
+Authorization: ApiKey <client_secret>
 ```
 
 ## Execute Calculation
