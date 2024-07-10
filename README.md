@@ -6,7 +6,7 @@ The examples bellow describe the most common use cases of the Viren Execution AP
 
 A nuget package for .NET development is available on https://github.com/tealpartners/viren.net
 
-The swagger for the Viren Rest API can be found on https://execution.viren.be/swagger/ui/index.
+The swagger for the Viren Rest API can be found on https://execution.viren.be/swagger.
 
 
 ## Examples
